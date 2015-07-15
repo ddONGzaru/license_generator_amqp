@@ -1,0 +1,103 @@
+buildscript {
+    ext {
+        springBootVersion = '1.2.5.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
+        classpath("io.spring.gradle:dependency-management-plugin:0.5.1.RELEASE")
+    }
+}
+
+// plugin config
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot' 
+apply plugin: 'io.spring.dependency-management'
+apply from:   'dependencies.gradle'
+
+apply plugin: "jacoco"
+
+// java version
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+compileGroovy {
+	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+}
+
+// source encoding
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+[compileGroovy, compileTestGroovy]*.options*.encoding = 'UTF-8'
+[compileGroovy, compileTestGroovy]*.groovyOptions*.encoding = 'UTF-8'
+
+// source sets
+sourceSets {
+	//main { compileClasspath += configurations.providedCompile }
+	test.groovy.srcDirs = ['src/test/java']
+	//test {
+	//    groovy { srcDirs = ['src/test/java'] }
+	//}
+}
+
+sourceSets.main.output.resourcesDir = sourceSets.main.output.classesDir
+sourceSets.test.output.resourcesDir = sourceSets.test.output.classesDir
+
+javadoc {                                                     
+    options.addStringOption("locale","ko_KR");
+    options.addStringOption("encoding","UTF-8");
+    options.addStringOption("charset","UTF-8");
+    options.addStringOption("docencoding","UTF-8");
+}
+
+repositories {
+	maven {
+		url 'http://211.174.156.95:8080/nexus/content/groups/public/'
+	}
+    mavenCentral()
+}
+
+// eclipse config
+eclipse {
+    classpath {
+		containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+		containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
+		defaultOutputDir = file('build/classes/main')
+    }
+    project {
+    	natures 'org.eclipse.jdt.groovy.core.groovyNature'
+    }
+}
+
+
+// wrapper config
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
+
+
+test {
+    jacoco{
+        excludes = ['io/recruit/commons/config/**']
+        //includes = ['com/bla/**']
+        append = false
+    }
+}
+
+/*
+jacocoTestReport {
+    dependsOn test
+    description = "Generate Jacoco coverage reports after running tests."
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+    classDirectories = fileTree(dir: 'build/classes/main', include: 'com/bla/**')
+    sourceDirectories = fileTree(dir: 'scr/main/java', include: 'com/bla/**')
+}*/
+
