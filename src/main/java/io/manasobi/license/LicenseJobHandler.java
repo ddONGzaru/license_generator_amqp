@@ -83,7 +83,7 @@ public interface LicenseJobHandler {
 		
 		private void updateLicenseDetails(String id, String licenseKey) {
 			
-			WriteResult result = licenseDetailsRepo.update("{id: #}", id).with("{$set: {key: #, generated: true}}", licenseKey);
+			WriteResult result = licenseDetailsRepo.update("{genKey: #}", id).with("{$set: {key: #, generated: true}}", licenseKey);
 			
 			CommonLogger.info(String.valueOf(result.getN()), this.getClass());
 		}

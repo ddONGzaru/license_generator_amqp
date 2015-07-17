@@ -7,11 +7,13 @@ public class LicenseDetails implements Serializable {
 
 	private static final long serialVersionUID = -6929387917025803018L;
 
-	private String id;
+	private String genKey;
 	
 	private String userName;
 	
 	private Date createdDate;
+	
+	private String createdDateStr;
 	
 	private License license;
 
@@ -19,12 +21,12 @@ public class LicenseDetails implements Serializable {
 	
 	private String key;
 
-	public String getId() {
-		return id;
+	public String getGenKey() {
+		return genKey;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setGenKey(String genKey) {
+		this.genKey = genKey;
 	}
 
 	public String getUserName() {
@@ -66,5 +68,14 @@ public class LicenseDetails implements Serializable {
 	public void setKey(String key) {
 		this.key = key;
 	}
+
+	public String getCreatedDateStr() {
+		return createdDateStr;
+	}
+
+	public void setCreatedDateStr(String createdDateStr) {
+		this.createdDateStr = createdDateStr;
+	}
+	
 	
 }
