@@ -7,11 +7,11 @@ import org.jongo.MongoCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.epapyrus.sdp.commons.utils.DateUtils;
 import com.mongodb.WriteResult;
 
 import io.manasobi.commons.crypto.Cipher;
 import io.manasobi.commons.logger.CommonLogger;
+import io.manasobi.utils.DateUtils;
 
 public interface LicenseJobHandler {
 

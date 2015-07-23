@@ -11,12 +11,10 @@ import org.apache.commons.codec.binary.Hex;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.springframework.stereotype.Component;
 
-import com.epapyrus.sdp.commons.logger.SdpLogger;
-import com.epapyrus.sdp.commons.utils.ByteUtils;
-import com.epapyrus.sdp.commons.utils.CryptoUtils;
-import com.epapyrus.sdp.commons.utils.StringUtils;
-
 import io.manasobi.commons.logger.CommonLogger;
+import io.manasobi.utils.ByteUtils;
+import io.manasobi.utils.CryptoUtils;
+import io.manasobi.utils.StringUtils;
 
 /**
  * DESC : 
@@ -89,7 +87,7 @@ public class DESCipher implements Cipher {
             encryptedData = cipher.doFinal(data);
             
         } catch (Exception e) {
-        	SdpLogger.error("DESCipher-encrypt ERROR: 암호화에 실패하였습니다. [" + e.getMessage() + "]", CryptoUtils.class);
+        	CommonLogger.error("DESCipher-encrypt ERROR: 암호화에 실패하였습니다. [" + e.getMessage() + "]", CryptoUtils.class);
         	return null;
         }
         
@@ -119,7 +117,7 @@ public class DESCipher implements Cipher {
         	encryptedString = new String(Hex.encodeHex(encryptedData));
             
         } catch (Exception e) {
-        	SdpLogger.error("DESCipher-encrypt ERROR: 암호화에 실패하였습니다. [" + e.getMessage() + "]", CryptoUtils.class);
+        	CommonLogger.error("DESCipher-encrypt ERROR: 암호화에 실패하였습니다. [" + e.getMessage() + "]", CryptoUtils.class);
         	return null;
         }
         
@@ -142,7 +140,7 @@ public class DESCipher implements Cipher {
 	            decryptedData = cipher.doFinal(data);
 
 	        } catch (Exception e) {
-	        	SdpLogger.error("DESCipher-decrypt ERROR: 복호화에 실패하였습니다. [" + e.getMessage() + "]", CryptoUtils.class);
+	        	CommonLogger.error("DESCipher-decrypt ERROR: 복호화에 실패하였습니다. [" + e.getMessage() + "]", CryptoUtils.class);
 	        	return null;
 	        }
 
@@ -172,7 +170,7 @@ public class DESCipher implements Cipher {
             }
 
         } catch (Exception e) {
-        	SdpLogger.error("DESCipher-decrypt ERROR: 복호화에 실패하였습니다. [" + e.getMessage() + "]", CryptoUtils.class);
+        	CommonLogger.error("DESCipher-decrypt ERROR: 복호화에 실패하였습니다. [" + e.getMessage() + "]", CryptoUtils.class);
         	return null;
         }
         
@@ -197,7 +195,7 @@ public class DESCipher implements Cipher {
             key = new SecretKeySpec(keyBytes, ALGORITHM);
             
         } catch (Exception e) {
-        	SdpLogger.error("DESCipher-getSecretDESKeyFromHex ERROR: Secret Key를 가져오는 것에 실패하였습니다. [" + e.getMessage() + "]", CryptoUtils.class);
+        	CommonLogger.error("DESCipher-getSecretDESKeyFromHex ERROR: Secret Key를 가져오는 것에 실패하였습니다. [" + e.getMessage() + "]", CryptoUtils.class);
         	return null;
         }
         
