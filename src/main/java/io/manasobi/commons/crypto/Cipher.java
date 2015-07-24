@@ -1,12 +1,6 @@
 package io.manasobi.commons.crypto;
 
-/**
- * DESC : 
- * 
- * @Company ePapyrus, Inc.
- * @author 
- * @Date 2013. 11. 24. 오후 2:27:10
- */
+
 public interface Cipher {
 	
 	byte[] getKey();
