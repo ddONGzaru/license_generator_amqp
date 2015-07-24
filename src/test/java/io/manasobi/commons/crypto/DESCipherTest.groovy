@@ -208,13 +208,13 @@ class DESCipherTest extends Specification {
 		
 		setup:
 			byte[] key = cipher.getKey()
-			String originText = '이파피루스 spock 테스트'
+			String originText = 'epapyrus spock test'
 		
 		when:
 			String encryptedText = cipher.encrypt(key, originText)
 			String result = cipher.decrypt(key, encryptedText)
 		then:
-			encryptedText.size() == 64
+			encryptedText.size() == 48
 			result == originText			
 	}
 	
