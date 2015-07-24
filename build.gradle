@@ -21,6 +21,8 @@ apply plugin: 'io.spring.dependency-management'
 apply from:   'dependencies.gradle'
 
 apply plugin: "jacoco"
+apply plugin: 'findbugs'
+apply plugin: 'checkstyle'
 
 // java version
 sourceCompatibility = 1.8
@@ -57,9 +59,13 @@ javadoc {
 
 repositories {
 	maven {
-		url 'http://211.174.156.95:8080/nexus/content/groups/public/'
+		url 'http://192.168.0.9:8081/nexus/content/groups/public/'
 	}
     mavenCentral()
+}
+
+javadoc {
+    options.encoding = "UTF-8"
 }
 
 // eclipse config
@@ -81,6 +87,7 @@ task wrapper(type: Wrapper) {
 }
 
 
+
 test {
     jacoco{
         excludes = ['io/recruit/commons/config/**']
@@ -89,6 +96,16 @@ test {
     }
 }
 
+findbugs {
+	ignoreFailures = true
+}
+
+checkstyle {
+
+	println rootDir
+	configFile = new File(rootDir, "config/manasobi-checkstyle.xml")
+	ignoreFailures = true
+}
 /*
 jacocoTestReport {
     dependsOn test

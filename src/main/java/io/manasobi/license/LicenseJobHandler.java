@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jongo.MongoCollection;
+import org.jongo.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -61,7 +62,6 @@ public interface LicenseJobHandler {
 			sb.append(stringToHex(license.getHostName()));
 			
 			return cipher.encrypt(cipher.getKey(), sb.toString(), "UTF-8");
-			
 		}
 		
 		private String stringToHex(String str) {
@@ -83,12 +83,12 @@ public interface LicenseJobHandler {
 		
 		private void updateLicenseDetails(String id, String licenseKey) {
 			
-			WriteResult result = licenseDetailsRepo.update("{genKey: #}", id).with("{$set: {key: #, generated: true}}", licenseKey);
+			Update update = licenseDetailsRepo.update("{genKey: #}", id);
+			
+			WriteResult result = update.with("{$set: {key: #, generated: true}}", licenseKey);
 			
 			CommonLogger.info(String.valueOf(result.getN()), this.getClass());
 		}
-		
-		
 		
 	}
 }
